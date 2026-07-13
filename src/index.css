@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cinzel", Georgia, serif;
+}
+
+:root {
+  --mate-brown: #7a4a31;
+  --mate-brown-dark: #5f3826;
+  --mate-cream: #f3e1b9;
+  --mate-cream-soft: #fbf3de;
+  --mate-ink: #2d1d14;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(122, 74, 49, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba(243, 225, 185, 0.55), transparent 35%),
+    linear-gradient(180deg, #f9ecd0 0%, #fdf7e9 48%, #fbf3de 100%);
+  color: var(--mate-ink);
+  font-family: 'Inter', sans-serif;
+}
+
+.mate-theme [class*="bg-[#2b3e13]"] {
+  background-color: var(--mate-brown) !important;
+}
+
+.mate-theme [class*="text-[#2b3e13]"] {
+  color: var(--mate-brown) !important;
+}
+
+.mate-theme [class*="border-[#2b3e13]"] {
+  border-color: var(--mate-brown) !important;
+}
+
+.mate-theme [class*="ring-[#2b3e13]"] {
+  --tw-ring-color: var(--mate-brown) !important;
+}
+
+.mate-theme [class*="hover:bg-[#4a6822]"]:hover {
+  background-color: var(--mate-brown-dark) !important;
+}
+
+.mate-theme [class*="bg-[#2b3e13]/5"] {
+  background-color: rgba(122, 74, 49, 0.08) !important;
+}
+
+.mate-theme [class*="bg-[#2b3e13]/10"] {
+  background-color: rgba(122, 74, 49, 0.1) !important;
+}
+
+.mate-theme [class*="bg-[#2b3e13]/15"] {
+  background-color: rgba(122, 74, 49, 0.15) !important;
+}
+
+.mate-theme [class*="bg-[#2b3e13]/20"] {
+  background-color: rgba(122, 74, 49, 0.2) !important;
+}
+
+.mate-theme [class*="border-[#2b3e13]/"] {
+  border-color: rgba(122, 74, 49, 0.3) !important;
+}
+
+.mate-theme [class*="text-[#2b3e13]/"] {
+  color: rgba(122, 74, 49, 0.82) !important;
+}
+
+.mate-theme [class*="bg-[#f6f6f6]/50"] {
+  background-color: rgba(243, 225, 185, 0.5) !important;
+}
