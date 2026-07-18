@@ -62,7 +62,7 @@ export const RIM_TEXT_BACKGROUND_RADIUS_OFFSET = 18;
 export const RIM_ICON_KNOCKOUT_SIZE = 20;
 export const RIM_ICON_KNOCKOUT_COLOR = "#eee9df";
 export const rimTextGeometry: RimTextGeometry = { centerX: 627, centerY: 627, radius: 474, startAngle: 185, endAngle: 355, fontSize: 78 };
-export const defaultRimIconPlacement: RimIconPlacement = { angle: 90, radius: 490, size: 160, rotationMode: "upright" };
+export const defaultRimIconPlacement: RimIconPlacement = { angle: 90, radius: 474, size: 120, rotationMode: "upright" };
 
 function getArcAngle(geometry: RimTextGeometry): number {
   return ((geometry.endAngle - geometry.startAngle) % 360 + 360) % 360;

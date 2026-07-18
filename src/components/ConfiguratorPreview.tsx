@@ -38,7 +38,10 @@ export function ConfiguratorPreview({ rim }: ConfiguratorPreviewProps) {
         {/* Layer 3: Circular text with knockout */}
         {rim.textMode === "text" && <CircularRimText text={rim.text} />}
         
-        {/* Layer 4: Outline */}
+        {/* Layer 4: Icons */}
+        {rim.imageMode === "image" && <RimIconLayer selectedImageId={rim.selectedImageId} />}
+        
+        {/* Layer 5: Outline */}
         <image
           href={outlineAsset}
           x="0"
@@ -48,7 +51,7 @@ export function ConfiguratorPreview({ rim }: ConfiguratorPreviewProps) {
           preserveAspectRatio="xMidYMid meet"
         />
 
-        {/* Layer 5: Center */}
+        {/* Layer 6: Center */}
         <image
           href={centerAsset}
           x="0"
@@ -57,9 +60,6 @@ export function ConfiguratorPreview({ rim }: ConfiguratorPreviewProps) {
           height={RIM_VIEWBOX_SIZE}
           preserveAspectRatio="xMidYMid meet"
         />
-        
-        {/* Layer 6: Icons */}
-        {rim.imageMode === "image" && <RimIconLayer selectedImageId={rim.selectedImageId} />}
       </svg>
     </div>
   );
