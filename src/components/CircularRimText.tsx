@@ -1,18 +1,52 @@
-import { useId } from "react";
-import { createArcPath, rimTextGeometry, RIM_VIEWBOX_SIZE } from "../catalog/rimGeometry";
+import { calculateRimCharacterKnockoutPadding, calculateRimCharacterLayout, rimTextGeometry, RIM_VIEWBOX_SIZE } from "../catalog/rimGeometry";
 
 interface CircularRimTextProps { text: string }
+interface RimTextFinishMaskProps { id: string; text: string }
+
+const luminanceMaskAttribute = { "mask-type": "luminance" };
+
+function RimCharacters({ text, mask = false }: { text: string; mask?: boolean }) {
+  const layout = calculateRimCharacterLayout(text, rimTextGeometry);
+  const knockoutStrokeWidth = calculateRimCharacterKnockoutPadding(layout.fontSize) * 2;
+  return (
+    <>
+      {layout.characters.map((character, index) => character.character !== " " && (
+        <text
+          key={`${character.character}-${index}`}
+          x={character.x}
+          y={character.y}
+          transform={`rotate(${character.rotation} ${character.x} ${character.y})`}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={mask ? "black" : "#1f1f1f"}
+          stroke={mask ? "black" : "none"}
+          strokeWidth={mask ? knockoutStrokeWidth : 0}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          paintOrder="stroke fill"
+          fontFamily="Georgia, 'Times New Roman', serif"
+          fontSize={layout.fontSize}
+          fontWeight="700"
+        >
+          {character.character}
+        </text>
+      ))}
+    </>
+  );
+}
+
+export function RimTextFinishMask({ id, text }: RimTextFinishMaskProps) {
+  return (
+    <mask id={id} {...luminanceMaskAttribute} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width={RIM_VIEWBOX_SIZE} height={RIM_VIEWBOX_SIZE}>
+      <rect width={RIM_VIEWBOX_SIZE} height={RIM_VIEWBOX_SIZE} fill="white" />
+      <RimCharacters text={text} mask />
+    </mask>
+  );
+}
 
 export function CircularRimText({ text }: CircularRimTextProps) {
-  const pathId = `rim-text-${useId().replace(/:/g, "")}`;
   if (!text.trim()) return null;
-  const fontSize = text.length > 20 ? 34 : text.length > 15 ? 38 : rimTextGeometry.fontSize;
   return (
-    <svg viewBox={`0 0 ${RIM_VIEWBOX_SIZE} ${RIM_VIEWBOX_SIZE}`} className="pointer-events-none absolute inset-0 z-40 h-full w-full" aria-hidden="true">
-      <defs><path id={pathId} d={createArcPath(rimTextGeometry)} fill="none" /></defs>
-      <text fill="#2d2d2a" stroke="#b8ae9d" strokeWidth="0.8" paintOrder="stroke" fontFamily="Georgia, 'Times New Roman', serif" fontSize={fontSize} fontWeight="700" letterSpacing="1.5">
-        <textPath href={`#${pathId}`} startOffset="50%" textAnchor="middle">{text}</textPath>
-      </text>
-    </svg>
+    <RimCharacters text={text} />
   );
 }
